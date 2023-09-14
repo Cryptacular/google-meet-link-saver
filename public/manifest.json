@@ -3,10 +3,17 @@
   "description": "Keep track of the links sent in Google Meet chats in one handy place",
   "version": "0.1",
   "manifest_version": 3,
+  "action": {
+    "default_title": "Google Meet Saved Links",
+    "default_popup": "googleMeetSavedLinksPopup.html"
+  },
+  "background": {
+    "service_worker": "googleMeetLinkSaverServiceWorker.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://meet.google.com/*-*-*"],
-      "js": ["googleMeetLinkSaver.js"]
+      "js": ["googleMeetLinkSaverContentScript.js"]
     }
   ]
 }

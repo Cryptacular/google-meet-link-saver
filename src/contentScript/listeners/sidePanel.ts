@@ -1,5 +1,5 @@
-import { observeDom } from "../utilities/observeDom";
-import { storeUrl } from "../utilities/storeUrl";
+import { observeDom } from "../../utilities/observeDom";
+import { storeUrl } from "../../utilities/storeUrl";
 
 const getMessagesIcon = () =>
   document

@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "rm -rf dist && npm run build:cs && npm run build:popup && npm run build:sw",
+    "build:cs": "tsc -p tsconfig.content-script.json && vite build --config=vite.content-script.config.js",
+    "build:popup": "tsc -p tsconfig.popup.json && vite build --config=vite.popup.config.js",
+    "build:sw": "tsc -p tsconfig.service-worker.json && vite build --config=vite.service-worker.config.js",
     "preview": "vite preview"
   },
   "devDependencies": {
