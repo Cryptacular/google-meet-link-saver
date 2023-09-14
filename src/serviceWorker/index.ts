@@ -2,7 +2,6 @@ if (import.meta.env.DEV) {
   const { addListener } = await import("../mocks/chromePubSubMock");
 
   addListener(async (request, _sender, sendResponse) => {
-    console.log("Received request:", request);
     const { type, loggedUrl } = request;
 
     if (type !== "LOGGED_URL" || !loggedUrl || typeof loggedUrl !== "string") {
@@ -30,8 +29,6 @@ if (import.meta.env.DEV) {
 } else {
   chrome.runtime.onMessage.addListener(
     async (request, _sender, sendResponse) => {
-      console.log("Received request:", request);
-
       const { type, loggedUrl } = request;
 
       if (

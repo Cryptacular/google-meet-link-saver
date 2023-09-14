@@ -29,9 +29,7 @@ render();
 if (import.meta.env.DEV) {
   const { addListener } = await import("../mocks/chromePubSubMock");
   addListener((message) => {
-    console.log({ message });
     if (message.type === "STATE_UPDATED") {
-      console.log("Re-rendering");
       render();
     }
 
