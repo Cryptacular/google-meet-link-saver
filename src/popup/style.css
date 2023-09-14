@@ -1,0 +1,41 @@
+a {
+  color: #333;
+}
+
+body {
+  margin: 8px;
+  width: 400px;
+}
+
+.gmls-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #e6eef2;
+  color: rgb(29, 87, 110);
+  padding: 15px;
+  box-sizing: border-box;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.gmls-list {
+  list-style: none;
+  padding: 0;
+}
+
+.gmls-list-item {
+  list-style: none;
+  margin: 5px 0;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.gmls-link-delete {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  line-height: 1;
+  cursor: pointer;
+}

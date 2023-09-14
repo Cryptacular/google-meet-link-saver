@@ -6,10 +6,5 @@ export default defineConfig({
   plugins: [react()],
   build: {
     emptyOutDir: false,
-    rollupOptions: {
-      input: {
-        index: "./googleMeetSavedLinksPopup.html",
-      },
-    },
   },
 });

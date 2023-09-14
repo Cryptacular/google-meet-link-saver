@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --config=vite.dev.config.js",
     "build": "rm -rf dist && npm run build:cs && npm run build:popup && npm run build:sw",
     "build:cs": "tsc -p tsconfig.json && vite build --config=vite.content-script.config.js",
     "build:popup": "tsc -p tsconfig.popup.json && vite build --config=vite.popup.config.js",
@@ -13,7 +13,14 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.245",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.4",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.11.0"
   }
 }

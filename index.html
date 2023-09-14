@@ -5,7 +5,12 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Meet Link Saver</title>
+    <link rel="stylesheet" href="./src/popup/style.css" />
     <style>
+      body {
+        font-family: sans-serif;
+      }
+
       section {
         padding: 20px;
       }
@@ -38,10 +43,11 @@
         Append message to thread
       </button>
       <button onclick="clearStoredLinks()">Clear stored links</button>
-      <div>
-        <h2>Stored links</h2>
-        <ul id="listOfUrls"></ul>
-      </div>
+    </section>
+
+    <section>
+      <h1>Popup</h1>
+      <div id="popup"></div>
     </section>
 
     <section>
@@ -118,6 +124,6 @@
     </script>
     <script type="module" src="/src/contentScript/main.ts"></script>
     <script type="module" src="/src/serviceWorker/index.ts"></script>
-    <script type="module" src="./src/popup/index.ts"></script>
+    <script type="module" src="/src/popup/index.ts"></script>
   </body>
 </html>

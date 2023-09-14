@@ -1,45 +1,6 @@
-const render = async () => {
-  let loggedUrls: string[];
+import { createRoot } from "react-dom/client";
+import App from "./components/App";
 
-  if (import.meta.env.DEV) {
-    loggedUrls = JSON.parse(
-      localStorage.getItem("googleMeetStoredUrls-test") || "[]"
-    );
-  } else {
-    const STORAGE_KEY = "googleMeetStoredUrls";
-    const currentStorage = await chrome.storage.sync.get(STORAGE_KEY);
-    loggedUrls = currentStorage[STORAGE_KEY] || [];
-  }
-
-  const ul = document.getElementById("listOfUrls");
-  ul?.replaceChildren(
-    ...loggedUrls.map((l) => {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = l;
-      a.innerText = l;
-      li.append(a);
-      return li;
-    })
-  );
-};
-
-render();
-
-if (import.meta.env.DEV) {
-  const { addListener } = await import("../mocks/chromePubSubMock");
-  addListener((message) => {
-    if (message.type === "STATE_UPDATED") {
-      render();
-    }
-
-    return true;
-  });
-} else {
-  chrome.runtime.onMessage.addListener((message) => {
-    if (message.type === "STATE_UPDATED") {
-      render();
-    }
-    return true;
-  });
-}
+const el = document.getElementById("popup");
+const root = createRoot(el!);
+root.render(App);
