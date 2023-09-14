@@ -19,5 +19,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/contentScript"]
+  "include": ["src/contentScript", "src/mocks"]
 }

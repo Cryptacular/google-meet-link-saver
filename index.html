@@ -37,6 +37,11 @@
       <button onclick="appendMessageToThread()">
         Append message to thread
       </button>
+      <button onclick="clearStoredLinks()">Clear stored links</button>
+      <div>
+        <h2>Stored links</h2>
+        <ul id="listOfUrls"></ul>
+      </div>
     </section>
 
     <section>
@@ -105,7 +110,14 @@
           document.getElementById("chatContainer").scrollTo(0, 999999999);
         } catch {}
       }
+
+      function clearStoredLinks() {
+        localStorage.removeItem("googleMeetStoredUrls-test");
+        window.sendMessage({ type: "STATE_UPDATED" });
+      }
     </script>
     <script type="module" src="/src/contentScript/main.ts"></script>
+    <script type="module" src="/src/serviceWorker/index.ts"></script>
+    <script type="module" src="./src/popup/index.ts"></script>
   </body>
 </html>
