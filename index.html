@@ -5,9 +5,107 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Meet Link Saver</title>
+    <style>
+      section {
+        padding: 20px;
+      }
+
+      .sender {
+        font-weight: bold;
+      }
+
+      .message-container {
+        margin-bottom: 20px;
+      }
+
+      .chat-container {
+        overflow-y: scroll;
+        max-height: 400px;
+        padding: 10px;
+        border: 1px solid lightgrey;
+        border-radius: 6px;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <section>
+      <h1>Test controls</h1>
+      <button onclick="sendPlainTextMessage()">
+        Send message without link
+      </button>
+      <button onclick="sendMessageWithLink()">Send message with link</button>
+      <button onclick="appendMessageToThread()">
+        Append message to thread
+      </button>
+    </section>
+
+    <section>
+      <hr />
+    </section>
+
+    <section>
+      <div data-panel-container-id="sidePanel2subPanel0">
+        <h1>Chat messages</h1>
+        <div id="chatContainer" class="chat-container" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <script>
+      function createMessageContent(messageHtml) {
+        const messageTextContainer = document.createElement("div");
+        messageTextContainer.innerHTML = messageHtml;
+        messageTextContainer.setAttribute(
+          "data-message-text",
+          messageTextContainer.innerText
+        );
+
+        return messageTextContainer;
+      }
+
+      function createMessage(messageHtml) {
+        const messageContainer = document.createElement("div");
+        messageContainer.className = "message-container";
+
+        const senderContainer = document.createElement("div");
+        senderContainer.className = "sender";
+        senderContainer.textContent = "Someone";
+
+        const messageTextContainer = createMessageContent(messageHtml);
+
+        messageContainer.appendChild(senderContainer);
+        messageContainer.appendChild(messageTextContainer);
+
+        return messageContainer;
+      }
+
+      function sendPlainTextMessage() {
+        const element = createMessage("A plain message with no link");
+        document.getElementById("chatContainer").appendChild(element);
+        document.getElementById("chatContainer").scrollTo(0, 999999999);
+      }
+
+      function sendMessageWithLink() {
+        const element = createMessage(
+          'This link <a href="https://google.com">https://google.com</a> is so great'
+        );
+        document.getElementById("chatContainer").appendChild(element);
+        document.getElementById("chatContainer").scrollTo(0, 999999999);
+      }
+
+      function appendMessageToThread() {
+        try {
+          const messages = document.querySelectorAll(
+            ".message-container > div"
+          );
+          const element = createMessageContent(
+            'This link <a href="https://google.co.nz">https://google.co.nz</a> is also great'
+          );
+
+          messages[messages.length - 1].appendChild(element);
+          document.getElementById("chatContainer").scrollTo(0, 999999999);
+        } catch {}
+      }
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
