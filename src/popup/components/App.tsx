@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import { MdDeleteForever, MdLink } from "react-icons/md";
 import { getLinks, removeLink } from "../services/storageService";
 
 const App = () => {
@@ -43,21 +43,26 @@ const App = () => {
       <h1 className="gmls-heading">Saved links from Google Meet</h1>
       {links.length > 0 ? (
         <ul className="gmls-list">
-          {links.map((link) => (
+          {links.reverse().map((link) => (
             <li key={link} className="gmls-list-item">
-              <a href={link}>{link}</a>
+              <MdLink title="Delete link" size={24} color="white" />
+              <a href={link} className="gmls-list-item-link">
+                {link}
+              </a>
               <button
                 className="gmls-link-delete"
                 onClick={() => handleDelete(link)}
               >
-                <RiDeleteBin5Fill title="Delete link" size={16} color="white" />
+                <MdDeleteForever title="Delete link" size={24} color="white" />
               </button>
             </li>
           ))}
         </ul>
       ) : (
         <p>
-          When links are sent in a Google Meet chat, they will show up here.
+          <em>
+            When links are sent in a Google Meet chat, they will show up here.
+          </em>
         </p>
       )}
     </div>
