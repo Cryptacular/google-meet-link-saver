@@ -40,7 +40,7 @@ const App = () => {
 
   return (
     <div className="gmls-container">
-      <h1>Saved links from Google Meet</h1>
+      <h1 className="gmls-heading">Saved links from Google Meet</h1>
       {links.length > 0 ? (
         <ul className="gmls-list">
           {links.map((link) => (
@@ -50,7 +50,7 @@ const App = () => {
                 className="gmls-link-delete"
                 onClick={() => handleDelete(link)}
               >
-                <RiDeleteBin5Fill title="Delete link" size={16} />
+                <RiDeleteBin5Fill title="Delete link" size={16} color="white" />
               </button>
             </li>
           ))}
