@@ -3,7 +3,7 @@
   "description": "Keep track of the links sent in Google Meet chats in one handy place",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage"],
   "icons": {
     "16": "images/icon@16px.png",
     "32": "images/icon@32px.png",
