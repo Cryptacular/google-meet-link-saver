@@ -1,7 +1,9 @@
-export const storeUrl = async (url: string) => {
+import { Link } from "../../models/Link";
+
+export const storeUrl = async (link: Link) => {
   if (import.meta.env.DEV) {
     const { sendMessage } = await import("../../mocks/chromePubSubMock");
-    sendMessage({ type: "LOGGED_URL", loggedUrl: url }, (response) => {
+    sendMessage({ type: "LOGGED_URL", link }, (response) => {
       if (response === "STATE_UPDATED") {
         sendMessage({ type: "STATE_UPDATED" });
       }
@@ -10,7 +12,7 @@ export const storeUrl = async (url: string) => {
     chrome.runtime.sendMessage(
       {
         type: "LOGGED_URL",
-        loggedUrl: url,
+        link,
       },
       async (response) => {
         if (response === "STATE_UPDATED") {

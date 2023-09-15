@@ -1,3 +1,4 @@
+import { Link } from "../../models/Link";
 import { observeDom } from "../utilities/observeDom";
 import { storeUrl } from "../utilities/storeUrl";
 
@@ -66,7 +67,19 @@ const handleSidePanelDomChange: MutationCallback = (
 
       const a = anchorTags[anchorTags.length - 1];
       if (a.href) {
-        storeUrl(a.href);
+        const sender =
+          a.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+            "data-sender-name"
+          );
+
+        if (!sender || sender === "You") return;
+
+        const link: Link = {
+          url: a.href,
+          sender,
+          date: new Date().toUTCString(),
+        };
+        storeUrl(link);
       }
     } catch (err) {
       console.log("Error:", err);

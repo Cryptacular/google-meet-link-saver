@@ -1,12 +1,3 @@
-a {
-  color: #fff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 body {
   margin: 4px;
   width: 400px;
@@ -23,6 +14,15 @@ body {
   border-radius: 4px;
 }
 
+.gmls-container a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.gmls-container a:hover {
+  text-decoration: underline;
+}
+
 .gmls-heading {
   margin-top: 8px;
   font-size: larger;
@@ -31,18 +31,28 @@ body {
 .gmls-list {
   list-style: none;
   padding: 0;
+  margin: 0 0 8px 0;
 }
 
 .gmls-list-item {
   list-style: none;
-  margin: 5px 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.gmls-list-item-sender {
+  font-weight: bold;
+}
+
+.gmls-list-item-link {
   display: flex;
   gap: 8px;
   justify-content: space-between;
   align-items: center;
 }
 
-.gmls-list-item-link {
+.gmls-list-item-anchor {
   flex: 1;
 }
 

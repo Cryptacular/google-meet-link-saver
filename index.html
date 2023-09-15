@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Meet Link Saver</title>
     <link rel="stylesheet" href="./src/popup/style.css" />
@@ -62,6 +61,9 @@
     </section>
 
     <script>
+      let personCounter = 1;
+      let linkCounter = 1;
+
       function createMessageContent(messageHtml) {
         const messageTextContainer = document.createElement("div");
         messageTextContainer.innerHTML = messageHtml;
@@ -74,17 +76,24 @@
       }
 
       function createMessage(messageHtml) {
+        const person = `Person ${personCounter}`;
+        personCounter++;
         const messageContainer = document.createElement("div");
         messageContainer.className = "message-container";
+        messageContainer.setAttribute("data-sender-name", person);
 
         const senderContainer = document.createElement("div");
         senderContainer.className = "sender";
-        senderContainer.textContent = "Someone";
+        senderContainer.textContent = person;
 
+        const messageContentContainer = document.createElement("div");
+        const messageContentSubContainer = document.createElement("div");
         const messageTextContainer = createMessageContent(messageHtml);
 
         messageContainer.appendChild(senderContainer);
-        messageContainer.appendChild(messageTextContainer);
+        messageContentSubContainer.appendChild(messageTextContainer);
+        messageContentContainer.appendChild(messageContentSubContainer);
+        messageContainer.appendChild(messageContentContainer);
 
         return messageContainer;
       }
@@ -96,8 +105,10 @@
       }
 
       function sendMessageWithLink() {
+        const url = `https://www.google.com/search?q=${linkCounter}`;
+        linkCounter++;
         const element = createMessage(
-          'This link <a href="https://google.com">https://google.com</a> is so great'
+          `This link <a href="${url}">${url}</a> is so great`
         );
         document.getElementById("chatContainer").appendChild(element);
         document.getElementById("chatContainer").scrollTo(0, 999999999);
@@ -106,10 +117,12 @@
       function appendMessageToThread() {
         try {
           const messages = document.querySelectorAll(
-            ".message-container > div"
+            ".message-container > div > div"
           );
+          const url = `https://www.google.com/search?q=${linkCounter}`;
+          linkCounter++;
           const element = createMessageContent(
-            'This link <a href="https://google.co.nz">https://google.co.nz</a> is also great'
+            `This link <a href="${url}">${url}</a> is also great`
           );
 
           messages[messages.length - 1].appendChild(element);

@@ -1,59 +1,44 @@
+import { getState, setState } from "../services/storageService";
+
+const handleRequest = async (
+  request: any,
+  sendResponse: (response?: any) => void
+): Promise<void> => {
+  const { type, link } = request;
+
+  if (
+    type !== "LOGGED_URL" ||
+    !link ||
+    !link.url ||
+    !link.sender ||
+    !link.date
+  ) {
+    sendResponse("NO_CHANGE");
+    return;
+  }
+
+  const state = await getState();
+
+  if (state.some((s) => s.url === link.url)) {
+    sendResponse("NO_CHANGE");
+    return;
+  }
+
+  await setState([...state, link]);
+
+  sendResponse("STATE_UPDATED");
+};
+
 if (import.meta.env.DEV) {
   const { addListener } = await import("../mocks/chromePubSubMock");
 
   addListener(async (request, _sender, sendResponse) => {
-    const { type, loggedUrl } = request;
-
-    if (type !== "LOGGED_URL" || !loggedUrl || typeof loggedUrl !== "string") {
-      sendResponse("NO_CHANGE");
-      return;
-    }
-
-    const state: string[] = JSON.parse(
-      localStorage.getItem("googleMeetStoredUrls-test") || "[]"
-    );
-
-    if (state.some((s) => s === request.loggedUrl)) {
-      sendResponse("NO_CHANGE");
-      return;
-    }
-
-    localStorage.setItem(
-      "googleMeetStoredUrls-test",
-      JSON.stringify([...state, request.loggedUrl])
-    );
-
-    sendResponse("STATE_UPDATED");
-    return true;
+    await handleRequest(request, sendResponse);
   });
 } else {
   chrome.runtime.onMessage.addListener(
     async (request, _sender, sendResponse) => {
-      const { type, loggedUrl } = request;
-
-      if (
-        type !== "LOGGED_URL" ||
-        !loggedUrl ||
-        typeof loggedUrl !== "string"
-      ) {
-        sendResponse("NO_CHANGE");
-        return;
-      }
-
-      const STORAGE_KEY = "googleMeetStoredUrls";
-      const currentStorage = await chrome.storage.sync.get(STORAGE_KEY);
-      const loggedUrls: string[] = currentStorage[STORAGE_KEY] || [];
-
-      if (loggedUrls.some((l) => l === loggedUrl)) {
-        sendResponse("NO_CHANGE");
-        return;
-      }
-
-      await chrome.storage.sync.set({
-        [STORAGE_KEY]: [...loggedUrls, loggedUrl],
-      });
-
-      sendResponse("STATE_UPDATED");
+      await handleRequest(request, sendResponse);
       return true;
     }
   );
