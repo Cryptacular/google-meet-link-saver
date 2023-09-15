@@ -1,9 +1,15 @@
 {
   "name": "Google Meet Link Saver",
   "description": "Keep track of the links sent in Google Meet chats in one handy place",
-  "version": "0.1",
+  "version": "1.0",
   "manifest_version": 3,
   "permissions": ["storage", "tabs"],
+  "icons": {
+    "16": "images/icon@16px.png",
+    "32": "images/icon@32px.png",
+    "48": "images/icon@48px.png",
+    "128": "images/icon@128px.png"
+  },
   "action": {
     "default_title": "Google Meet Saved Links",
     "default_popup": "googleMeetSavedLinksPopup.html"

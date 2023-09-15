@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --config=vite.dev.config.js",
     "build": "rm -rf dist && npm run build:cs && npm run build:popup && npm run build:sw",
+    "postbuild": "rm -f dist.zip && zip -r dist.zip dist",
     "build:cs": "tsc -p tsconfig.json && vite build --config=vite.content-script.config.js",
     "build:popup": "tsc -p tsconfig.popup.json && vite build --config=vite.popup.config.js",
     "build:sw": "tsc -p tsconfig.service-worker.json && vite build --config=vite.service-worker.config.js",
