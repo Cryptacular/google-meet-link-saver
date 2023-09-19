@@ -48,12 +48,14 @@ body {
 .gmls-list-item-link {
   display: flex;
   gap: 8px;
-  justify-content: space-between;
   align-items: center;
 }
 
 .gmls-list-item-anchor {
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gmls-link-delete {

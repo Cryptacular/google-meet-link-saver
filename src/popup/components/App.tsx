@@ -71,6 +71,7 @@ const App = () => {
                       href={link}
                       target="_blank"
                       className="gmls-list-item-anchor"
+                      title={link}
                     >
                       {link}
                     </a>
