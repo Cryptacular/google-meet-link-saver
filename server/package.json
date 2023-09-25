@@ -1,0 +1,16 @@
+{
+  "name": "google-meet-link-saver-api",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {},
+  "devDependencies": {
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "global": "^4.4.0",
+    "node-fetch": "^3.3.2",
+    "vercel": "^32.3.1"
+  }
+}
