@@ -41,14 +41,14 @@ const App = () => {
 
   const groupLinksBySender = (
     links: Link[]
-  ): { sender: string; links: string[] }[] => {
+  ): { sender: string; links: Link[] }[] => {
     const senders = links
       .map((l) => l.sender)
       .filter((val, i, arr) => arr.indexOf(val) === i);
 
     return senders.map((s) => ({
       sender: s,
-      links: links.filter((l) => l.sender === s).map((l) => l.url),
+      links: links.filter((l) => l.sender === s),
     }));
   };
 
@@ -64,20 +64,29 @@ const App = () => {
 
             <ul className="gmls-list">
               {senderLink.links.map((link) => (
-                <li key={link} className="gmls-list-item">
+                <li key={link.url} className="gmls-list-item">
                   <span className="gmls-list-item-link">
                     <MdLink title="Delete link" size={24} color="white" />
                     <a
-                      href={link}
+                      href={link.url}
                       target="_blank"
                       className="gmls-list-item-anchor"
-                      title={link}
+                      title={link.url}
                     >
-                      {link}
+                      {link.title ? (
+                        <>
+                          {link.title}{" "}
+                          <span className="gmls-list-item-url">
+                            ({link.url})
+                          </span>
+                        </>
+                      ) : (
+                        link.url
+                      )}
                     </a>
                     <button
                       className="gmls-link-delete"
-                      onClick={() => handleDelete(link)}
+                      onClick={() => handleDelete(link.url)}
                     >
                       <MdDeleteForever
                         title="Delete link"

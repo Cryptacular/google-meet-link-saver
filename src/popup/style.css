@@ -58,6 +58,11 @@ body {
   text-overflow: ellipsis;
 }
 
+.gmls-list-item-url {
+  font-style: italic;
+  opacity: 0.5;
+}
+
 .gmls-link-delete {
   border: none;
   padding: 0;

@@ -1,3 +1,4 @@
+import { getPageTitle } from "../services/pageTitleService";
 import { getState, setState } from "../services/storageService";
 
 const handleRequest = async (
@@ -24,7 +25,9 @@ const handleRequest = async (
     return;
   }
 
-  await setState([...state, link]);
+  const title = await getPageTitle(link.url);
+
+  await setState([...state, { ...link, title }]);
 
   sendResponse("STATE_UPDATED");
 };
