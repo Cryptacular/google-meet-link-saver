@@ -41,6 +41,7 @@
       <button onclick="appendMessageToThread()">
         Append message to thread
       </button>
+      <button onclick="testVarietyOfLinks()">Test variety of links</button>
       <button onclick="clearStoredLinks()">Clear stored links</button>
     </section>
 
@@ -104,9 +105,16 @@
         document.getElementById("chatContainer").scrollTo(0, 999999999);
       }
 
-      function sendMessageWithLink() {
-        const url = `https://www.google.com/search?q=${linkCounter}`;
-        linkCounter++;
+      function sendMessageWithLink(urlOverride) {
+        let url;
+
+        if (urlOverride) {
+          url = urlOverride;
+        } else {
+          url = `https://www.google.com/search?q=${linkCounter}`;
+          linkCounter++;
+        }
+
         const element = createMessage(
           `This link <a href="${url}">${url}</a> is so great`
         );
@@ -128,6 +136,33 @@
           messages[messages.length - 1].appendChild(element);
           document.getElementById("chatContainer").scrollTo(0, 999999999);
         } catch {}
+      }
+
+      function testVarietyOfLinks() {
+        const urls = [
+          "http://google.com/search?q=http",
+          "http://www.google.com/search?q=http-www",
+          "https://google.com/search?q=https",
+          "https://www.google.com/search?q=https-www",
+        ];
+
+        const state =
+          JSON.parse(localStorage.getItem("googleMeetStoredUrls-test")) ?? [];
+
+        localStorage.setItem(
+          "googleMeetStoredUrls-test",
+          JSON.stringify([
+            ...state,
+            ...urls.map((u) => ({
+              url: u,
+              sender: "Test",
+              date: new Date().toISOString(),
+              title: null,
+            })),
+          ])
+        );
+
+        window.location.reload();
       }
 
       function clearStoredLinks() {

@@ -18,14 +18,13 @@ const handleRequest = async (
     return;
   }
 
+  const title = await getPageTitle(link.url);
   const state = await getState();
 
   if (state.some((s) => s.url === link.url)) {
     sendResponse("NO_CHANGE");
     return;
   }
-
-  const title = await getPageTitle(link.url);
 
   await setState([...state, { ...link, title }]);
 

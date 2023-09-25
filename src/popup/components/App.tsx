@@ -81,7 +81,7 @@ const App = () => {
                           </span>
                         </>
                       ) : (
-                        link.url
+                        link.url.replace(/^https?:\/\/(www.)?/g, "")
                       )}
                     </a>
                     <button
