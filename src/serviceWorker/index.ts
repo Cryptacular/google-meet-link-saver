@@ -31,6 +31,29 @@ const handleRequest = async (
   sendResponse("STATE_UPDATED");
 };
 
+const processExistingLinks = async () => {
+  const state = await getState();
+
+  const titles = new Map<string, string>();
+
+  for (const link of state) {
+    if (link.title) continue;
+
+    const title = await getPageTitle(link.url);
+
+    if (!title) continue;
+
+    titles.set(link.url, title);
+  }
+
+  const newState = state.map((link) => ({
+    ...link,
+    title: titles.get(link.url) ?? link.title,
+  }));
+
+  await setState(newState);
+};
+
 if (import.meta.env.DEV) {
   const { addListener } = await import("../mocks/chromePubSubMock");
 
@@ -44,4 +67,9 @@ if (import.meta.env.DEV) {
       return true;
     }
   );
+
+  chrome.runtime.onInstalled.addListener(async () => {
+    await processExistingLinks();
+    return true;
+  });
 }
