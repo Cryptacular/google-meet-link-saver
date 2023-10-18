@@ -33,16 +33,17 @@ const openAndCloseMessagesPanel = () => {
   }, 200);
 };
 
-export const listenForMessagesFromSidePanel = () => {
+export const listenForMessagesFromSidePanel = (): boolean => {
   openAndCloseMessagesPanel();
 
   const chatContainer = getChatContainer();
 
   if (!chatContainer) {
-    throw new Error("Chat panel could not be found");
+    return false;
   }
 
-  return observeDom(chatContainer, handleSidePanelDomChange);
+  observeDom(chatContainer, handleSidePanelDomChange);
+  return true;
 };
 
 const handleSidePanelDomChange: MutationCallback = (
@@ -59,20 +60,21 @@ const handleSidePanelDomChange: MutationCallback = (
 
       const chatContainer = getChatContainer();
 
-      if (!chatContainer) return;
+      if (!chatContainer || chatContainer.childElementCount === 0) return;
 
-      const anchorTags = chatContainer.querySelectorAll("a");
-
+      const messageBlock =
+        chatContainer.children[chatContainer.children.length - 1];
+      const anchorTags = messageBlock.querySelectorAll("a");
       if (anchorTags.length === 0) return;
 
+      const senderContainer = messageBlock.children[0];
+      const sender = senderContainer.children[0].textContent;
       const a = anchorTags[anchorTags.length - 1];
-      if (a.href) {
-        const sender =
-          a.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
-            "data-sender-name"
-          );
 
-        if (!sender || sender === "You") return;
+      if (a.href) {
+        if (!sender || sender === "You") {
+          throw new Error("Could not find sender");
+        }
 
         const link: Link = {
           url: a.href,

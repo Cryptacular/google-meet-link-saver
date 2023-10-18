@@ -2,7 +2,9 @@ import { listenForMessagesFromSidePanel } from "./listeners/sidePanel";
 
 const interval = setInterval(() => {
   try {
-    listenForMessagesFromSidePanel();
-    clearInterval(interval);
-  } catch {}
+    const isListening = listenForMessagesFromSidePanel();
+    if (isListening) clearInterval(interval);
+  } catch (err) {
+    console.error(err);
+  }
 }, 200);

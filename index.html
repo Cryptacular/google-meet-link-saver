@@ -81,11 +81,14 @@
         personCounter++;
         const messageContainer = document.createElement("div");
         messageContainer.className = "message-container";
-        messageContainer.setAttribute("data-sender-name", person);
 
         const senderContainer = document.createElement("div");
         senderContainer.className = "sender";
-        senderContainer.textContent = person;
+        const senderTextContainer = document.createElement("div");
+        const senderNameContainer = document.createElement("div");
+        senderNameContainer.textContent = person;
+        senderTextContainer.appendChild(senderNameContainer);
+        senderContainer.appendChild(senderTextContainer);
 
         const messageContentContainer = document.createElement("div");
         const messageContentSubContainer = document.createElement("div");
