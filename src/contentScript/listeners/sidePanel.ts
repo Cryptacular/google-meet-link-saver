@@ -26,11 +26,13 @@ const openAndCloseMessagesPanel = () => {
 
   if (!button) return;
 
-  button.click();
-
   setTimeout(() => {
     button.click();
-  }, 200);
+
+    setTimeout(() => {
+      button.click();
+    }, 300);
+  }, 1000);
 };
 
 export const listenForMessagesFromSidePanel = (): boolean => {
