@@ -15,7 +15,7 @@ const getMessagesIcon = () =>
 
 const getChatContainer = () => {
   const sidePanelChat = document.querySelector(
-    'div[data-panel-container-id="sidePanel2subPanel0"]'
+    'div[data-panel-container-id="sidePanel2"]'
   );
 
   return sidePanelChat?.querySelector('div[aria-live="polite"]');
@@ -32,7 +32,7 @@ const openAndCloseMessagesPanel = () => {
     setTimeout(() => {
       button.click();
     }, 300);
-  }, 1000);
+  }, 500);
 };
 
 export const listenForMessagesFromSidePanel = (): boolean => {
