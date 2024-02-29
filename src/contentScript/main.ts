@@ -2,8 +2,8 @@ import { listenForMessagesFromSidePanel } from "./listeners/sidePanel";
 import { executeWithExponentialBackoff } from "./utilities/exponentialBackoff";
 
 executeWithExponentialBackoff(
-  () => {
-    const isListening = listenForMessagesFromSidePanel();
+  async () => {
+    const isListening = await listenForMessagesFromSidePanel();
     if (!isListening) {
       throw new Error("Couldn't find side panel");
     }

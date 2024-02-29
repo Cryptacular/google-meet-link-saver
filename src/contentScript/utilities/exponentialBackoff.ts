@@ -10,7 +10,7 @@ type BackOffOption =
       shouldStop: true;
     };
 
-export const executeWithExponentialBackoff = (
+export const executeWithExponentialBackoff = async (
   f: Function,
   timeoutMs: number,
   backoffOptions: BackOffOption[],
@@ -33,9 +33,12 @@ export const executeWithExponentialBackoff = (
   }
 
   try {
-    f();
+    await f();
   } catch (err) {
-    console.error(err);
+    if (import.meta.env.DEV) {
+      console.error(err);
+    }
+
     setTimeout(() => {
       executeWithExponentialBackoff(f, timeout, backoffOptions, attempt + 1);
     }, timeout);

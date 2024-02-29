@@ -21,22 +21,22 @@ const getChatContainer = () => {
   return sidePanelChat?.querySelector('div[aria-live="polite"]');
 };
 
-const openAndCloseMessagesPanel = () => {
-  const button = getMessagesIcon();
+const openAndCloseMessagesPanel = (): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const button = getMessagesIcon();
+    if (!button) reject("Button not found");
 
-  if (!button) return;
-
-  setTimeout(() => {
     button.click();
 
     setTimeout(() => {
       button.click();
+      resolve();
     }, 300);
-  }, 500);
+  });
 };
 
-export const listenForMessagesFromSidePanel = (): boolean => {
-  openAndCloseMessagesPanel();
+export const listenForMessagesFromSidePanel = async (): Promise<boolean> => {
+  await openAndCloseMessagesPanel();
 
   const chatContainer = getChatContainer();
 
